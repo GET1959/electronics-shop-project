@@ -14,3 +14,19 @@ def test_calculate_total_price():
 def test_apply_discount():
     assert item1.apply_discount() == 9000.0
     assert item2.apply_discount() == 18000.0
+
+
+def test_instantiate_from_csv():
+    assert [item.name for item in Item.instantiate_from_csv("src/items.csv")] == [
+        "Смартфон",
+        "Ноутбук",
+        "Кабель",
+        "Мышка",
+        "Клавиатура",
+    ]
+
+
+def test_string_to_number():
+    assert Item.string_to_number('5') == 5
+    assert Item.string_to_number('5.0') == 5
+    assert Item.string_to_number('5.5') == 5
