@@ -25,16 +25,23 @@ class Item:
         Item.price = self.price * self.pay_rate
         Item.all.append(self)
 
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
+
+    def __str__(self) -> str:
+        return f"{self.name}"
+
     @property
     def name(self) -> str:
         return self.__name
 
     @name.setter
-    def name(self, name: str) -> str:
+    def name(self, name: str) -> None:
         if len(name) <= 10:
             self.__name = name
         else:
             self.__name = name[:10]
+        return None
 
     @classmethod
     def instantiate_from_csv(cls, file: str) -> list:

@@ -1,3 +1,5 @@
+import pytest
+
 from src.item import Item
 
 
@@ -27,6 +29,17 @@ def test_instantiate_from_csv():
 
 
 def test_string_to_number():
-    assert Item.string_to_number('5') == 5
-    assert Item.string_to_number('5.0') == 5
-    assert Item.string_to_number('5.5') == 5
+    assert Item.string_to_number("5") == 5
+    assert Item.string_to_number("5.0") == 5
+    assert Item.string_to_number("5.5") == 5
+
+
+@pytest.mark.parametrize(
+    "arg, expected", [(Item("Смартфон", 10000, 20), "Item('Смартфон', 10000, 20)")]
+)
+def test_repr(arg, expected):
+    assert repr(arg) == expected
+
+
+def test_str():
+    assert str(item1) == "Смартфон"
