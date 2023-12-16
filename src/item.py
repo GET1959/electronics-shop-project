@@ -37,10 +37,7 @@ class Item:
 
     @name.setter
     def name(self, name: str) -> None:
-        if len(name) <= 10:
-            self.__name = name
-        else:
-            self.__name = name[:10]
+        self.__name = name[:10]
         return None
 
     @classmethod
