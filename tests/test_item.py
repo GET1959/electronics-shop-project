@@ -1,6 +1,7 @@
 import pytest
 
 from src.item import Item
+from src.phone import Phone
 
 
 item1 = Item("Смартфон", 10000, 20)
@@ -43,3 +44,12 @@ def test_repr(arg, expected):
 
 def test_str():
     assert str(item1) == "Смартфон"
+
+
+item3 = Item("Смартфон", 10000, 20)
+phone1 = Phone("iPhone 14", 120_000, 5, 2)
+
+
+def test_add():
+    assert item3 + phone1 == 25
+    assert phone1 + phone1 == 10
