@@ -13,10 +13,12 @@ class Phone(Item):
         return f"{self.name}"
 
     @property
-    def number_of_sim(self) -> str:
+    def number_of_sim(self) -> int:
         return self.__number_of_sim
 
     @number_of_sim.setter
-    def number_of_sim(self, __number_of_sim) -> None:
+    def number_of_sim(self, __number_of_sim: int) -> None:
         if self.__number_of_sim < 1:
-            raise ValueError('Количество физических SIM - карт должно быть целым числом больше нуля.')
+            raise ValueError(
+                "Количество физических SIM - карт должно быть целым числом больше нуля."
+            )

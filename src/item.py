@@ -31,7 +31,7 @@ class Item:
     def __str__(self) -> str:
         return f"{self.name}"
 
-    def __add__(self, other):
+    def __add__(self, other: int) -> None:
         if isinstance(other, Item):
             return self.quantity + other.quantity
 
@@ -42,7 +42,6 @@ class Item:
     @name.setter
     def name(self, name: str) -> None:
         self.__name = name[:10]
-        return None
 
     @classmethod
     def instantiate_from_csv(cls, file: str) -> list:
