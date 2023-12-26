@@ -50,15 +50,20 @@ class Item:
         """
         cur_dir = os.path.dirname(os.path.dirname(__file__))
         path_to_file = os.path.join(cur_dir + "/" + file)
-
-        with open(path_to_file, newline="", encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-            cls.all = []
-            reader_list = []
-            for row in reader:
-                name, price, quantity = row["name"], float(row["price"]), int(row["quantity"])
-                reader_list.append(cls(name, price, quantity))
-        return reader_list
+        try:
+            with open(path_to_file, newline="", encoding="utf-8") as csvfile:
+                # try:
+                reader = csv.DictReader(csvfile)
+                cls.all = []
+                reader_list = []
+                for row in reader:
+                    if not "name" in row or not "price" in row or not "quantity" in row:
+                        raise InstantiateCSVError
+                    name, price, quantity = row["name"], float(row["price"]), int(row["quantity"])
+                    reader_list.append(cls(name, price, quantity))
+            return reader_list
+        except FileNotFoundError:
+            print('Отсутствует файл item.csv')
 
     @staticmethod
     def string_to_number(dig_str: str) -> int:
@@ -82,3 +87,13 @@ class Item:
         """
         self.price = self.price * self.pay_rate
         return self.price
+
+
+class InstantiateCSVError(Exception):
+    """Класс исключения при невозможности открыть файл"""
+
+    def __init__(self, *args, **kwargs):
+        self.message = args[0] if args else 'Файл item.csv поврежден'
+
+    def __str__(self):
+        return self.message

@@ -1,6 +1,6 @@
 import pytest
 
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 from src.phone import Phone
 
 
@@ -53,3 +53,15 @@ phone1 = Phone("iPhone 14", 120_000, 5, 2)
 def test_add():
     assert item3 + phone1 == 25
     assert phone1 + phone1 == 10
+
+
+def test_instantiate_from_csv_not_found():
+    try:
+        Item.instantiate_from_csv("item.csv")
+    except Exception as e:
+        pytest.fail(f"Unexpected exception raised: {e}")
+
+
+def test_instantiate_from_csv_er():
+    with pytest.raises(InstantiateCSVError, match="Файл item.csv поврежден"):
+        Item.instantiate_from_csv("/src/item.csv")
